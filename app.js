@@ -2,18 +2,25 @@ const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
+const path = require('path');
 
 const AppError = require('./utils/appError');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewsRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
 // global middlewares
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serving static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // set securiy HTTP headers
 app.use(helmet());
@@ -41,6 +48,7 @@ app.use((req, res, next) => {
     next()
 })
 
+app.use('/', viewRouter);
 app.use('/app/v1/tours', tourRouter);
 app.use('/app/v1/users', userRouter);
 app.use('/app/v1/reviews', reviewRouter);
