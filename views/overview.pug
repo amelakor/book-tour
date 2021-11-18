@@ -27,7 +27,7 @@ block content
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-flag')
-              span= `${tour} stops`
+              span= `${tour.locations.length} stops`
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-user')
@@ -43,4 +43,3 @@ block content
               | 
               span.card__footer-text= `rating (${tour.ratingsQuantity})`
             a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
-          
