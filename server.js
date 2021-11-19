@@ -5,21 +5,26 @@ dotenv.config({ path: './config.env' });
 
 const app = require('./app');
 
-const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD)
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
 
-mongoose.connect(DB, {
+mongoose
+  .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
-}).then(() => {
-    console.log('DB connection sucessfull')
-}).catch(err => {
-    console.log(err)
-});
+  })
+  .then(() => {
+    console.log('DB connection sucessfull');
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const port = 3000 || process.env.PORT;
 
 app.listen(port, () => {
-    console.log('App is running')
-})
-
+  console.log('App is running');
+});
